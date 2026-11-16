@@ -2,9 +2,7 @@
 
 A solo follow-up to my team's [Brazilian E-Commerce EDA](https://github.com/geoLeslie/olist-ecommerce-eda), which was done in Python and Pandas. This time the analysis is written in SQL and presented as an interactive dashboard.
 
-**Dashboard:** [link coming soon](#)
-
-![Dashboard screenshot](docs/screenshots/dashboard.png)
+**Dashboard:** in progress (Looker Studio link and screenshot will be added here)
 
 ## Goal
 
