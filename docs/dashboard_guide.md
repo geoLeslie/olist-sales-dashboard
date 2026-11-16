@@ -15,11 +15,11 @@ Only `07` has a date on every row, so only charts built from it change when you 
 
 ## 2. Add the data
 
-The easiest way is the **File Upload** connector (no Google Sheets needed):
+Looker Studio is now called Data Studio. The easiest way is the **CSV File Upload** connector (no Google Sheets needed):
 
-1. Go to [lookerstudio.google.com](https://lookerstudio.google.com) and click **Blank report**.
-2. In "Add data to report", search for **File Upload**, then upload `07_dashboard_orders.csv`. Name the data source `orders`.
-3. Click **Add data** (top menu: Resource > Manage added data sources > Add a data source) and repeat for `03`, `04` and `06`.
+1. Go to [lookerstudio.google.com](https://lookerstudio.google.com) and create a blank report.
+2. In "Add data to report", pick **CSV File Upload**. Click **Create dataset** (name it `orders`), then **Add file** and upload `07_dashboard_orders.csv`. Click **Add**.
+3. Click **Add data** in the toolbar and repeat for `03` (`late_reviews`), `04` (`top_categories`) and `06` (`payments`).
 
 If you prefer Google Sheets: import each CSV into a Sheet, but first set **File > Settings > Locale** to **United States**. With the Indonesia locale, Sheets reads `111798.36` wrong because Indonesia uses a comma for decimals.
 
@@ -29,16 +29,18 @@ Resource > Manage added data sources > `orders` > Edit:
 
 | Field | Type | Default aggregation |
 |---|---|---|
-| purchase_date | Date (YYYY-MM-DD) | None |
 | customer_state | Text | None |
 | revenue | Currency (BRL) | Sum |
 | review_score | Number | Average |
 | delivery_days | Number | Average |
 | is_late | Number | Average |
 
-Then click **Add a field** and create:
+Then click **Add a field** and create two calculated fields:
 
+- `order_date` with formula `PARSE_DATE("%Y-%m-%d", purchase_date)`. Data Studio does not convert `purchase_date` to a date on its own, so this field is the date used everywhere.
 - `late_rate` with formula `AVG(is_late)`, type **Percent**
+
+Every chart built on `orders` needs **Date range dimension** set to `order_date` (in the chart's Setup), otherwise the date filter does nothing.
 
 ## 4. Layout
 
@@ -74,7 +76,7 @@ Then click **Add a field** and create:
 Expected values for the full period: R$13.18M, 96,203 orders, 4.16, 6.8%.
 
 **Chart 1: Monthly trend** (Insert > Time series, source `orders`)
-- Dimension: purchase_date, then click the calendar icon and set granularity to **Year Month**
+- Dimension: order_date, then click the calendar icon and set granularity to **Year Month**
 - Metrics: revenue (Sum), Record Count
 - Style tab: put Record Count on the right axis
 
@@ -105,4 +107,4 @@ Optional: use a Geo chart instead. Create a field `state_code` = `CONCAT("BR-", 
 1. Theme and layout > pick a simple theme, keep 2 or 3 colors.
 2. Click **View** and test that the date filter changes the KPI cards, trend and state table.
 3. Share > Manage access > "Anyone with the link can view". Copy the link into the README.
-4. Take a screenshot (full page) and save it as `docs/screenshots/dashboard.png`.
+4. Click **Reset** in View mode, then File > Download > PDF, convert the page to an image and save it as `docs/screenshots/dashboard.jpg`.

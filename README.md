@@ -2,7 +2,11 @@
 
 A solo follow-up to my team's [Brazilian E-Commerce EDA](https://github.com/geoLeslie/olist-ecommerce-eda), which was done in Python and Pandas. This time the analysis is written in SQL and presented as an interactive dashboard.
 
-**Dashboard:** in progress (Looker Studio link and screenshot will be added here)
+**Dashboard:** [View the interactive dashboard](https://datastudio.google.com/reporting/131ed277-7e3f-4df1-8cc5-232c03ba7cf1) (sign in to any Google account to view the live version)
+
+![Dashboard screenshot](docs/screenshots/dashboard.jpg)
+
+The KPI cards, monthly trend and state table follow the date filter, and clicking a month in the trend chart filters them to that month. The charts marked "full period" show the whole Jan 2017 to Aug 2018 range.
 
 ## Goal
 
@@ -31,7 +35,7 @@ Definitions used in every query:
 - **DuckDB** as a local SQL database
 - **SQL** for the analysis (JOINs, GROUP BY, CTEs, window functions)
 - **Python** (duckdb, pandas) to load the CSVs and export query results
-- **Looker Studio** for the dashboard
+- **Looker Studio** (now called Data Studio) for the dashboard
 - **DBeaver** to write and test queries
 
 ## Project structure
@@ -72,6 +76,7 @@ Only 3.0% of customers (2,789 out of 93,104) placed more than one order. Olist d
 
 **3. Late deliveries destroy review scores.**
 6.8% of orders arrived late. On-time orders average 4.29 stars, but orders 1 to 3 days late drop to 3.29, and orders 8 or more days late average just 1.70.
+Late deliveries also got worse over time: 5.7% in 2017 vs 7.7% in 2018, mostly from a spike in February (14.1%) and March 2018 (19.0%).
 
 **4. Delivery is much slower outside the Southeast.**
 São Paulo (SP) customers wait 8.7 days on average, compared with 29.9 days in Roraima (RR) and 26.4 days in Amazonas (AM). Alagoas (AL) has the highest late rate at 21.5%, almost 5 times SP's 4.5%.
