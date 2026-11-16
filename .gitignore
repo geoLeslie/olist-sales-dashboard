@@ -1,0 +1,20 @@
+# Raw Kaggle data: download it yourself (see README), never commit it
+data/raw/*
+!data/raw/.gitkeep
+
+# Local database built by scripts/load_data.py (rebuildable, too large for git)
+*.duckdb
+*.duckdb.wal
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
