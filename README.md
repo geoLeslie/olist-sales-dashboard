@@ -2,8 +2,7 @@
 
 A solo follow-up to my team's [Brazilian E-Commerce EDA](https://github.com/geoLeslie/olist-ecommerce-eda), which was done in Python and Pandas. This time the analysis is written in SQL and presented as an interactive dashboard.
 
-**Dashboard:** [View the interactive dashboard](https://datastudio.google.com/reporting/131ed277-7e3f-4df1-8cc5-232c03ba7cf1) (sign in to any Google account to view the live version)
-
+**Dashboard:** [View the interactive dashboard](https://datastudio.google.com/reporting/131ed277-7e3f-4df1-8cc5-232c03ba7cf1)
 ![Dashboard screenshot](docs/screenshots/dashboard.jpg)
 
 The KPI cards, monthly trend and state table follow the date filter, and clicking a month in the trend chart filters them to that month. The charts marked "full period" show the whole Jan 2017 to Aug 2018 range.
@@ -35,7 +34,7 @@ Definitions used in every query:
 - **DuckDB** as a local SQL database
 - **SQL** for the analysis (JOINs, GROUP BY, CTEs, window functions)
 - **Python** (duckdb, pandas) to load the CSVs and export query results
-- **Looker Studio** (now called Data Studio) for the dashboard
+- **Looker Studio** (now called Data Studio) for the dashboard, with the query results stored in **Google Sheets**
 - **DBeaver** to write and test queries
 
 ## Project structure

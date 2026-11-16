@@ -15,13 +15,11 @@ Only `07` has a date on every row, so only charts built from it change when you 
 
 ## 2. Add the data
 
-Looker Studio is now called Data Studio. The easiest way is the **CSV File Upload** connector (no Google Sheets needed):
+Looker Studio is now called Data Studio. Use **Google Sheets** as the data source. The CSV File Upload connector also works, but its charts show "System error" to visitors who are not signed in to Google.
 
-1. Go to [lookerstudio.google.com](https://lookerstudio.google.com) and create a blank report.
-2. In "Add data to report", pick **CSV File Upload**. Click **Create dataset** (name it `orders`), then **Add file** and upload `07_dashboard_orders.csv`. Click **Add**.
-3. Click **Add data** in the toolbar and repeat for `03` (`late_reviews`), `04` (`top_categories`) and `06` (`payments`).
-
-If you prefer Google Sheets: import each CSV into a Sheet, but first set **File > Settings > Locale** to **United States**. With the Indonesia locale, Sheets reads `111798.36` wrong because Indonesia uses a comma for decimals.
+1. Create a Google Sheet with 4 tabs (`orders`, `late_reviews`, `top_categories`, `payments`) and paste in each CSV. Set **File > Settings > Locale** to **United States** first: with the Indonesia locale, Sheets reads `111798.36` wrong because Indonesia uses a comma for decimals.
+2. Go to [lookerstudio.google.com](https://lookerstudio.google.com) and create a blank report.
+3. **Add data** > **Google Sheets** > pick the sheet and the `orders` tab > **Add**. Repeat for the other 3 tabs.
 
 ## 3. Fix field types in the `orders` data source
 
@@ -37,7 +35,7 @@ Resource > Manage added data sources > `orders` > Edit:
 
 Then click **Add a field** and create two calculated fields:
 
-- `order_date` with formula `PARSE_DATE("%Y-%m-%d", purchase_date)`. Data Studio does not convert `purchase_date` to a date on its own, so this field is the date used everywhere.
+- `order_date` with formula `purchase_date` (Google Sheets already reads it as a date; with CSV File Upload you need `PARSE_DATE("%Y-%m-%d", purchase_date)` instead). This is the date used everywhere.
 - `late_rate` with formula `AVG(is_late)`, type **Percent**
 
 Every chart built on `orders` needs **Date range dimension** set to `order_date` (in the chart's Setup), otherwise the date filter does nothing.
