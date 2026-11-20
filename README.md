@@ -1,4 +1,4 @@
-# Olist Sales Dashboard (SQL + Looker Studio)
+# Olist Sales Dashboard (SQL + Looker Studio + Power BI)
 
 A solo follow-up to my team's [Brazilian E-Commerce EDA](https://github.com/geoLeslie/olist-ecommerce-eda), which was done in Python and Pandas. This time the analysis is written in SQL and presented as an interactive dashboard.
 
@@ -6,6 +6,18 @@ A solo follow-up to my team's [Brazilian E-Commerce EDA](https://github.com/geoL
 ![Dashboard screenshot](docs/screenshots/dashboard.jpg)
 
 The KPI cards, monthly trend and state table follow the date filter, and clicking a month in the trend chart filters them to that month. The charts marked "full period" show the whole Jan 2017 to Aug 2018 range.
+
+### Power BI version
+
+The same dashboard rebuilt in Power BI Desktop: [powerbi/olist_sales_dashboard.pbix](powerbi/olist_sales_dashboard.pbix)
+![Power BI dashboard screenshot](docs/screenshots/powerbi_dashboard.png)
+
+- **Power Query** to load the query results, set column types, split the delay labels into a sort order and a label, and clean category names
+- **DAX measures** for the KPI cards: `Total Revenue = SUM(orders[revenue])`, `Total Orders = COUNTROWS(orders)`, `Avg Review = AVERAGE(orders[review_score])`, `Late Rate = AVERAGE(orders[is_late])`
+- **DAX calculated column** `Order Month` to group orders by month
+- A month slicer that filters the KPI cards and both monthly charts, a Top N filter for the 10 slowest states, an average line on the late rate chart, and a custom dark theme ([powerbi/olist_dark_theme.json](powerbi/olist_dark_theme.json))
+
+The donut chart shows total paid by customers (R$15.38M), which includes about R$2.19M of freight, so it is higher than the R$13.18M item revenue in the KPI card.
 
 ## Goal
 
@@ -35,6 +47,7 @@ Definitions used in every query:
 - **SQL** for the analysis (JOINs, GROUP BY, CTEs, window functions)
 - **Python** (duckdb, pandas) to load the CSVs and export query results
 - **Looker Studio** (now called Data Studio) for the dashboard, with the query results stored in **Google Sheets**
+- **Power BI Desktop** for a second version of the dashboard (Power Query, DAX)
 - **DBeaver** to write and test queries
 
 ## Project structure
@@ -45,6 +58,7 @@ sql/             one .sql file per business question
 scripts/         load_data.py and run_queries.py
 outputs/         query results as CSV (used by the dashboard)
 docs/            dashboard guide and screenshots
+powerbi/         Power BI report (.pbix) and dark theme
 ```
 
 ## How to run
@@ -64,6 +78,7 @@ docs/            dashboard guide and screenshots
    .venv\Scripts\python.exe scripts\run_queries.py
    ```
 5. Build the dashboard by following [docs/dashboard_guide.md](docs/dashboard_guide.md).
+6. For the Power BI version, open `powerbi/olist_sales_dashboard.pbix` in Power BI Desktop. If the CSV paths differ on your computer, update them in Transform data, Data source settings.
 
 ## Key findings
 
